@@ -29,7 +29,11 @@ public class BookController {
     @ResponseBody
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
     public Book addBook(@RequestBody Book book){
-        return bookRepository.save(book);
+        boolean bookFound = bookRepository.existsByAuthorAndTitle(book.getAuthor(), book.getTitle());
+        if(bookFound) {
+            return null;
+        } else
+            return bookRepository.save(book);
     }
 
 
