@@ -1,6 +1,7 @@
 package com.bibliotek.Repositories;
 
 import com.bibliotek.Models.Book;
+import com.bibliotek.Models.Category;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -15,5 +16,6 @@ public interface CategoryRepository extends CrudRepository {
 
     Book findById (Long id);
     List<Book> findByName (String name);
+    boolean existsByName(String name);
 
 }
