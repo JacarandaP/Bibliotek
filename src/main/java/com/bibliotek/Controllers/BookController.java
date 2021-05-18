@@ -18,7 +18,7 @@ import java.util.stream.StreamSupport;
  * Copywrite: MIT
  */
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/book")
 public class BookController {
 
     @Autowired
@@ -29,6 +29,26 @@ public class BookController {
         return bookRepository.findAll();
     }
 
+    @ResponseBody
+    @PostMapping(value="/add", consumes="application/json",produces="application/json")
+    public Book addBook(@RequestBody Book book){
+        boolean bookFound = bookRepository.existsByAuthorAndTitle(book.getAuthor(), book.getTitle());
+        if(bookFound) {
+            return null;
+        } else
+            return bookRepository.save(book);
+    }
+
+
+    @RequestMapping("/author")
+    public List<Book> showBooksByAuthour(String author){
+        return bookRepository.findBookByAuthor(author);
+    }
+
+    @RequestMapping("/category")
+    public List<Book> showBooksByCategory(String category){
+        return bookRepository.findByCategory(category);
+    }
 
 
     @RequestMapping ("/delete/{id}")
