@@ -3,10 +3,7 @@ package com.bibliotek.Controllers;
 import com.bibliotek.Models.Book;
 import com.bibliotek.Repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +15,7 @@ import java.util.List;
  * Copywrite: MIT
  */
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/book")
 public class BookController {
 
     @Autowired
@@ -27,6 +24,12 @@ public class BookController {
     @RequestMapping("")
     public Iterable<Book> showAllBooks(){
         return bookRepository.findAll();
+    }
+
+    @ResponseBody
+    @PostMapping(value="/add", consumes="application/json",produces="application/json")
+    public Book addBook(@RequestBody Book book){
+        return bookRepository.save(book);
     }
 
 
