@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Copywrite: MIT
  */
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/book")
 public class BookController {
 
     @Autowired
