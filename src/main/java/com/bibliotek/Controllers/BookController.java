@@ -30,5 +30,15 @@ public class BookController {
     }
 
 
+    @RequestMapping("/author")
+    public List<Book> showBooksByAuthour(String author){
+        return bookRepository.findBookByAuthor(author);
+    }
+
+    @RequestMapping("/category")
+    public List<Book> showBooksByCategory(String category){
+        return bookRepository.findByCategory(category);
+    }
+
 }
 
