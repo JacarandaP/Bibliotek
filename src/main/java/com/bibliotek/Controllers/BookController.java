@@ -50,6 +50,10 @@ public class BookController {
         return bookRepository.findByCategory(category);
     }
 
+    @RequestMapping("/year")
+    public List<Book> showBooksByYear(String year){
+        return bookRepository.findBookByYear(year);
+    }
 
     @RequestMapping ("/delete/{id}")
     public String deleteBookById(@PathVariable long id){
