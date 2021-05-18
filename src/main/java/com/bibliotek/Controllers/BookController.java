@@ -30,5 +30,10 @@ public class BookController {
     }
 
 
+    @RequestMapping("/author")
+    public Iterable<Book> showBookByAuthour(String author){
+        return bookRepository.findBookByAuthor(author);
+    }
+
 }
 
