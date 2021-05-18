@@ -22,17 +22,19 @@ public class Book {
     private String title;
     private String author;
     private String publisher;
+    private String year;
 
     @OneToOne
     @JoinColumn(name="categoryId")
     private Category category;
 
-    public Book(long id, String title, String author, String publisher, Category category) {
+    public Book(long id, String title, String author, String publisher, Category category, String year) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.category = category;
+        this.year = year;
     }
 
     public Book(){}

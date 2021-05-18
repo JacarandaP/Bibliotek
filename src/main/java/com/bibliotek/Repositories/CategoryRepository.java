@@ -12,10 +12,9 @@ import java.util.List;
  * Project: Bibliotek
  */
 
-public interface CategoryRepository extends CrudRepository {
+public interface CategoryRepository extends CrudRepository<Category,Long> {
 
-    Book findById (Long id);
-    List<Book> findByName (String name);
-    boolean existsByName(String name);
+    Category findCategoryById(Long id);
+    List<Category> findByName (String name);
 
 }
