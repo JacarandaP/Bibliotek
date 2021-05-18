@@ -20,5 +20,10 @@ public class BookController {
     @Autowired
     private BookRepository bookRepository;
 
+    @RequestMapping("")
+    public List<Book> showAllBooks(){
+        return bookRepository.findAll();
+    }
+
 }
 
