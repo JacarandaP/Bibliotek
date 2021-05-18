@@ -18,7 +18,7 @@ import java.util.List;
  * Copywrite: MIT
  */
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/books")
 public class BookController {
 
     @Autowired
