@@ -23,9 +23,9 @@ public class CategoryController {
 
 
     @RequestMapping("")
-    public Iterable<Category> showAllCategories(){
+    public Iterable<Category> showAllCategories() {
         return categoryRepository.findAll();
-
+    }
     @ResponseBody
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
     public Category addCategory(@RequestBody Category category){

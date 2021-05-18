@@ -1,5 +1,6 @@
 package com.bibliotek.Models;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import javax.persistence.*;
  * Project: Bibliotek
  * Copyright: MIT
  */
+@Data
 @Getter
 @Setter
 @Entity

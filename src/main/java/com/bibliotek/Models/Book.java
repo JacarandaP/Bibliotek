@@ -18,14 +18,14 @@ public class Book {
 
     @Id
     @GeneratedValue (strategy= GenerationType.IDENTITY)
-    private long id; //Uniq id
+    private Long id; //Uniq id
     private String title;
     private String author;
     private String publisher;
     private String year;
 
-    @OneToOne
-    @JoinColumn(name="categoryId")
+    @ManyToOne
+    @JoinColumn(name="categoryId", referencedColumnName = "id")
     private Category category;
 
     public Book(long id, String title, String author, String publisher, Category category, String year) {
