@@ -44,7 +44,7 @@ class CategoryServiceTest {
 
         Category actual = categoryService.addCategory(testCategory);
 
-        //assertEquals(expectedCategory, actual.getName());
+        assertEquals(expectedCategory, actual.getName());
         verify(categoryRepository).save(any());
     }
 
@@ -68,7 +68,6 @@ class CategoryServiceTest {
         when(categoryRepository.existsByName(anyString())).thenReturn(true);
 
         //assertThrows(ResponseStatusException. class, () ->categoryService.addCategory(existingCategory));
-
 
         verify(categoryRepository, times(0)).save(any());
         verify(categoryRepository.existsByName(anyString()));
