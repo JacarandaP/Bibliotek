@@ -3,7 +3,9 @@ package com.bibliotek.Controllers;
 import com.bibliotek.Models.Book;
 import com.bibliotek.Repositories.BookRepository;
 import com.bibliotek.Services.BookService;
+
 import lombok.RequiredArgsConstructor;
+
 import org.assertj.core.internal.Iterables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,7 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/book")
 public class BookController {
 
+    @Autowired
     private final BookService service;
 
     @RequestMapping("")
@@ -37,10 +40,19 @@ public class BookController {
         return service.addBook(book);
     }
 
-
     @RequestMapping("/author")
-    public List<Book> showBooksByAuthour(String author){
+    public List<Book> showBooksByAuthor(String author){
         return service.getBooksByAuthor(author);
+    }
+
+    @RequestMapping("/title")
+    public List<Book> showBooksByTitle(String title){
+        return service.getBooksByTitle(title);
+    }
+
+    @RequestMapping("/authorAndTitle")
+    public Book showBooksByAuthorAndTitle(String author, String title){
+        return service.getBooksByAuthorAndTitle(author, title);
     }
 
     @RequestMapping("/category")
@@ -55,7 +67,15 @@ public class BookController {
 
     @RequestMapping ("/delete/{id}")
     public String deleteBookById(@PathVariable long id){
-        return service.deleteBookById(id);
+        return service.deleteById(id);
     }
+
+    @RequestMapping("/readBooks")
+    public Iterable<Book> getReadBooks() { return service.getBooksIHaveRead();}
+
+    @RequestMapping("/bookstoread")
+    public Iterable<Book> getBooksToRead() { return service.getBookToRead();}
+
+
 }
 

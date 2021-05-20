@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by Lisa Ramel
  * Date: 2021-05-18
@@ -24,7 +26,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @RequestMapping("")
-    public Iterable<Category> showAllCategories() {
+    public List<Category> showAllCategories() {
         return categoryService.getAllCategories();
     }
 

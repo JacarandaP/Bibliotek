@@ -36,9 +36,9 @@ public class BookRepositoryTest {
 
         bookRepository.save(book1);
 
-        Book actualBook = bookRepository.findBookByTitle("Snabba Cash");
+        List<Book> actualBook = bookRepository.findBookByTitle("Snabba Cash");
 
-        assertEquals(book1, book1);
+        assertEquals(Arrays.asList(book1), actualBook);
 
     }
 }

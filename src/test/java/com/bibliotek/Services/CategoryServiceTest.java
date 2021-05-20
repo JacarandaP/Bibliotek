@@ -9,6 +9,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -48,6 +51,7 @@ class CategoryServiceTest {
         verify(categoryRepository).save(any());
     }
 
+
     // Add addCategory_failures
     @Test
     void addCategory_invalid(){
@@ -58,6 +62,29 @@ class CategoryServiceTest {
         verify(categoryRepository, times(0)).existsByName(anyString());
     }
 
+
+    @Test
+    void getAllCategories() {
+        Category testCategory1 = new Category();
+        String expectedCategory1 = "Biografi";
+
+        Category testCategory2 = new Category();
+        String expectedCategory2 = "Deckare";
+
+        testCategory1.setName(expectedCategory1);
+        testCategory2.setName(expectedCategory2);
+
+        when(categoryRepository.findAll()).thenReturn(Arrays.asList(testCategory1, testCategory2));
+
+        List<Category> actual = categoryService.getAllCategories();
+
+        assertEquals(testCategory1, actual.get(0));
+        assertEquals(testCategory2, actual.get(1));
+        assertEquals(2, actual.size());
+    }
+
+
+  
     @Test
     void addCategory_Existing(){
         String expectedCategory ="Skönlitteratur";
