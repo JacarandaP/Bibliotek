@@ -30,6 +30,11 @@ public class CategoryController {
         return categoryService.getAllCategories();
     }
 
+    @RequestMapping("/name")
+    public Category showCategoryByName(@RequestParam String name){
+        return categoryService.getCategoryByName(name);
+    }
+
     @ResponseBody
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
     public Category addCategory(@RequestBody Category category){
