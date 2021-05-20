@@ -129,5 +129,19 @@ class BookServiceTest {
 
     @Test
     void getBooksByYear() {
+        Book mockBook = new Book();
+        String year = "2009";
+        mockBook.setAuthor("Inger Christensen");
+        mockBook.setTitle("Det");
+        mockBook.setPublisher("Modernista");
+        mockBook.setYear(year);
+
+        when(mockRepository.findBookByYear(year)).thenReturn(Arrays.asList(mockBook));
+
+        List<Book> actual = bookService.getBooksByYear(year);
+
+        assertEquals(year, actual.get(0).getYear());
+        verify(mockRepository).findBookByYear(anyString());
+
     }
 }
