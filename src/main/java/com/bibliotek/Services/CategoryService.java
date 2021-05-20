@@ -28,11 +28,19 @@ public class CategoryService {
     }
 
     public Category addCategory(Category category){
+        validateCategory(category);
         boolean categoryFound = categoryRepository.existsByName(category.getName());
         if(categoryFound) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category already exists.");
         } else
             return categoryRepository.save(category);
+    }
+
+    //Add to test addCategory_invalid
+    private void validateCategory(Category category){
+        if(category.getName()== null || category.getName().isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category name must be written.");
+        }
     }
 
 }
