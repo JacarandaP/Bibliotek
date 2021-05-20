@@ -36,6 +36,11 @@ public class CategoryService {
             return categoryRepository.save(category);
     }
 
+    public Category getCategoryByName(String categoryName){
+        return categoryRepository.findByName(categoryName);
+    }
+
+
     //Add to test addCategory_invalid
     private void validateCategory(Category category){
         if(category.getName()== null || category.getName().isEmpty()){

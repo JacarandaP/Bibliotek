@@ -36,4 +36,9 @@ public class CategoryController {
         return categoryService.addCategory(category);
     }
 
+    @RequestMapping("/name")
+    public Category showCategoryByName(@RequestParam String name){
+        return categoryService.getCategoryByName(name);
+    }
+
 }
