@@ -41,8 +41,18 @@ public class BookController {
     }
 
     @RequestMapping("/author")
-    public List<Book> showBooksByAuthour(String author){
+    public List<Book> showBooksByAuthor(String author){
         return service.getBooksByAuthor(author);
+    }
+
+    @RequestMapping("/title")
+    public List<Book> showBooksByTitle(String title){
+        return service.getBooksByTitle(title);
+    }
+
+    @RequestMapping("/authorAndTitle")
+    public Book showBooksByAuthorAndTitle(String author, String title){
+        return service.getBooksByAuthorAndTitle(author, title);
     }
 
     @RequestMapping("/category")
@@ -62,6 +72,9 @@ public class BookController {
 
     @RequestMapping("/readBooks")
     public Iterable<Book> getReadBooks() { return service.getBooksIHaveRead();}
+
+    @RequestMapping("/bookstoread")
+    public Iterable<Book> getBooksToRead() { return service.getBookToRead();}
 
 
 }

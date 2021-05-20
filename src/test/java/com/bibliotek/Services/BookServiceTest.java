@@ -5,21 +5,26 @@ import com.bibliotek.Models.Category;
 import com.bibliotek.Repositories.BookRepository;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.server.ResponseStatusException;
+
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
 
 /**
  * Created by Vilma Couturier Kaijser
@@ -59,6 +64,7 @@ class BookServiceTest {
     }
 
 
+
     @Test
     void getBooks(){
         Book mockBook1 = new Book();
@@ -89,9 +95,6 @@ class BookServiceTest {
         Book mockBook = new Book();
         String author = "Inger Christensen";
         mockBook.setAuthor(author);
-        mockBook.setTitle("Det");
-        mockBook.setPublisher("Modernista");
-        mockBook.setYear("2009");
 
         when(mockRepository.findBookByAuthor(author)).thenReturn(Arrays.asList(mockBook));
 
@@ -100,8 +103,68 @@ class BookServiceTest {
         assertEquals(author, actual.get(0).getAuthor());
         verify(mockRepository).findBookByAuthor(anyString());
 
+
+    }
+  
+   @Test
+    void addBook_fail() {
+        Book mockBook = new Book();
+        mockBook.setAuthor("Inger Christensen");
+  
+  
+        mockBook.setTitle("Det");
+        mockBook.setPublisher("Modernista");
+        mockBook.setYear("2009");
+      
+        when(mockRepository.existsByAuthorAndTitle(anyString(), anyString())).thenReturn(true);
+
+        assertThrows(ResponseStatusException.class, ()-> bookService.addBook(mockBook));
+
+        verify(mockRepository, times(0)).save(any());
+        verify(mockRepository).existsByAuthorAndTitle(anyString(), anyString());
+
+
+    void deleteBookTest_fail(){
+
+        Book mockBook = new Book();
+        mockBook.setId(5L);
+        mockBook.setAuthor("Inger Christensen");
+        mockBook.setTitle("Det");
+        mockBook.setPublisher("Modernista");
+        mockBook.setYear("2009");
+
+        mockRepository.save(mockBook);
+
+        when(mockRepository.existsById(anyLong())).thenReturn(false);
+
+        assertThrows(ResponseStatusException.class, ()-> bookService.deleteById(mockBook.getId()));
+
+        verify(mockRepository, times(0)).deleteById(anyLong());
+        verify(mockRepository).existsById(anyLong());
     }
 
+    @Test
+    void deleteBookTest_success(){
+        Book mockBook = new Book();
+        mockBook.setId(5L);
+        mockBook.setAuthor("Inger Christensen");
+        mockBook.setTitle("Det");
+        mockBook.setPublisher("Modernista");
+        mockBook.setYear("2009");
+
+        mockRepository.save(mockBook);
+
+        when(mockRepository.existsById(anyLong())).thenReturn(true);
+
+        String message = bookService.deleteById(mockBook.getId());
+
+        assertEquals("Book with id "+ mockBook.getId() + " is removed.", message);
+
+        verify(mockRepository).deleteById(anyLong());
+        verify(mockRepository).existsById(anyLong());
+    }
+
+  
     @Test
     void getBooksByCategory() {
         Category mockCat = new Category();
@@ -123,8 +186,6 @@ class BookServiceTest {
         assertEquals(mockCat.getName(), actual.get(0).getCategory().getName());
         assertEquals(1, actual.size());
         verify(mockRepository).findByCategory(anyString());
-
-
     }
 
     @Test
@@ -142,6 +203,5 @@ class BookServiceTest {
 
         assertEquals(year, actual.get(0).getYear());
         verify(mockRepository).findBookByYear(anyString());
-
     }
 }

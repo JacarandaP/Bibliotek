@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -34,8 +35,21 @@ public class BookService {
         return readBooks;
     }
 
+    public Iterable<Book> getBookToRead(){
+        Iterable<Book> booksToRead = repository.findByHaveIReadIt(false);
+        return booksToRead;
+    }
+
     public List<Book> getBooksByAuthor(String author){
         return repository.findBookByAuthor(author);
+    }
+
+    public List<Book> getBooksByTitle(String title){
+        return repository.findBookByTitle(title);
+    }
+
+    public Book getBooksByAuthorAndTitle(String author, String title){
+        return repository.findByAuthorAndTitle(author, title);
     }
 
     public List<Book> getBooksByCategory(String category){
@@ -54,7 +68,7 @@ public class BookService {
             return repository.save(book);
     }
 
-    public String deleteBookById(long id){
+   /* public String deleteBookById(long id){
         int indexToRemove = -1;
         List<Book> books = StreamSupport.stream(repository.findAll().spliterator(), false).collect(Collectors.toList());
         for(int i = 0; i < books.size(); i++){
@@ -68,5 +82,15 @@ public class BookService {
             return "Book with id " + id + " is removed.";
         }
         return "Book with id " + id + " could not be removed.";
+    }*/
+
+    public String deleteById(Long id) {
+        boolean doesBookexist = repository.existsById(id);
+        if (!doesBookexist) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Book with " + id + " not found. Impossible to remove");
+        } else{
+        repository.deleteById(id);
+        return "Book with id " + id + " is removed.";
+        }
     }
 }
