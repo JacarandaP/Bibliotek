@@ -10,6 +10,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -37,8 +42,6 @@ class BookServiceTest {
 
     @Test
     void addBook_success() {
-        Category mockCat = new Category();
-        mockCat.setName("poesi");
         Book mockBook = new Book();
         mockBook.setAuthor("Inger Christensen");
         mockBook.setTitle("Det");
@@ -53,5 +56,31 @@ class BookServiceTest {
         assertEquals(mockBook.getAuthor(), actual.getAuthor());
         verify(mockRepository).save(any());
         verify(mockRepository).existsByAuthorAndTitle(anyString(), anyString());
+    }
+
+
+    @Test
+    void getBooks(){
+        Book mockBook1 = new Book();
+        mockBook1.setAuthor("Inger Christensen");
+        mockBook1.setTitle("Det");
+        mockBook1.setPublisher("Modernista");
+        mockBook1.setYear("2009");
+
+        Book mockBook2 = new Book();
+        mockBook2.setAuthor("Jens Lapidus");
+        mockBook2.setTitle("Snabba Cash");
+        mockBook2.setPublisher("Pocket");
+        mockBook2.setYear("2008");
+
+        when(mockRepository.findAll()).thenReturn(Arrays.asList(mockBook1, mockBook2));
+
+        List<Book> actual = StreamSupport.stream(bookService.getBooks().spliterator(), false).collect(Collectors.toList());
+
+        assertEquals(2, actual.size());
+        assertEquals(mockBook1.getAuthor(), actual.get(0).getAuthor());
+        assertEquals(mockBook2.getTitle(), actual.get(1).getTitle());
+
+        verify(mockRepository).findAll();
     }
 }
