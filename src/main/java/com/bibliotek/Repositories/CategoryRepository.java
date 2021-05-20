@@ -17,5 +17,6 @@ public interface CategoryRepository extends CrudRepository<Category,Long> {
     Category findCategoryById(Long id);
     Category findByName (String name);
     boolean existsByName(String name);
+    List<Category> findAll();
 
 }
