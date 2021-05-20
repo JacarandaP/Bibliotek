@@ -5,6 +5,7 @@ import com.bibliotek.Models.Category;
 import com.bibliotek.Repositories.BookRepository;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -69,6 +70,47 @@ class BookServiceTest {
         verify(mockRepository, times(0)).save(any());
         verify(mockRepository).existsByAuthorAndTitle(anyString(), anyString());
 
+    }
 
+    @Test
+    void deleteBookTest_fail(){
+
+        Book mockBook = new Book();
+        mockBook.setId(5L);
+        mockBook.setAuthor("Inger Christensen");
+        mockBook.setTitle("Det");
+        mockBook.setPublisher("Modernista");
+        mockBook.setYear("2009");
+
+        mockRepository.save(mockBook);
+
+        when(mockRepository.existsById(anyLong())).thenReturn(false);
+
+        assertThrows(ResponseStatusException.class, ()-> bookService.deleteById(mockBook.getId()));
+
+        verify(mockRepository, times(0)).deleteById(anyLong());
+        verify(mockRepository).existsById(anyLong());
+    }
+
+    @Test
+    void deleteBookTest_success(){
+
+        Book mockBook = new Book();
+        mockBook.setId(5L);
+        mockBook.setAuthor("Inger Christensen");
+        mockBook.setTitle("Det");
+        mockBook.setPublisher("Modernista");
+        mockBook.setYear("2009");
+
+        mockRepository.save(mockBook);
+
+        when(mockRepository.existsById(anyLong())).thenReturn(true);
+
+        String message = bookService.deleteById(mockBook.getId());
+
+        assertEquals("Book with id "+ mockBook.getId() + " is removed.", message);
+
+        verify(mockRepository).deleteById(anyLong());
+        verify(mockRepository).existsById(anyLong());
     }
 }
