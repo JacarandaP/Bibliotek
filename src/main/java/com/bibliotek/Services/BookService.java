@@ -53,7 +53,7 @@ public class BookService {
     }
 
     public List<Book> getBooksByCategory(String category){
-        return repository.findByCategory(category);
+        return repository.findBookByCategory_Name(category);
     }
 
     public List<Book> getBooksByYear(String year){

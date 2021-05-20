@@ -20,7 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("category")
+@RequestMapping("/category")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -36,7 +36,7 @@ public class CategoryController {
         return categoryService.addCategory(category);
     }
 
-    @RequestMapping("/name")
+    @GetMapping("/name")
     public Category showCategoryByName(@RequestParam String name){
         return categoryService.getCategoryByName(name);
     }
