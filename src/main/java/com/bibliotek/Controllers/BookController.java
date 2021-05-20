@@ -67,7 +67,7 @@ public class BookController {
 
     @RequestMapping ("/delete/{id}")
     public String deleteBookById(@PathVariable long id){
-        return service.deleteBookById(id);
+        return service.deleteById(id);
     }
 
     @RequestMapping("/readBooks")

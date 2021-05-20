@@ -108,22 +108,23 @@ class BookServiceTest {
   
    @Test
     void addBook_fail() {
-        Book mockBook = new Book();
-        mockBook.setAuthor("Inger Christensen");
-  
-  
-        mockBook.setTitle("Det");
-        mockBook.setPublisher("Modernista");
-        mockBook.setYear("2009");
-      
-        when(mockRepository.existsByAuthorAndTitle(anyString(), anyString())).thenReturn(true);
-
-        assertThrows(ResponseStatusException.class, ()-> bookService.addBook(mockBook));
-
-        verify(mockRepository, times(0)).save(any());
-        verify(mockRepository).existsByAuthorAndTitle(anyString(), anyString());
+       Book mockBook = new Book();
+       mockBook.setAuthor("Inger Christensen");
 
 
+       mockBook.setTitle("Det");
+       mockBook.setPublisher("Modernista");
+       mockBook.setYear("2009");
+
+       when(mockRepository.existsByAuthorAndTitle(anyString(), anyString())).thenReturn(true);
+
+       assertThrows(ResponseStatusException.class, () -> bookService.addBook(mockBook));
+
+       verify(mockRepository, times(0)).save(any());
+       verify(mockRepository).existsByAuthorAndTitle(anyString(), anyString());
+   }
+
+    @Test
     void deleteBookTest_fail(){
 
         Book mockBook = new Book();
