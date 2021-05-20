@@ -3,6 +3,9 @@ package com.bibliotek.Controllers;
 import com.bibliotek.Models.Book;
 import com.bibliotek.Repositories.BookRepository;
 import com.bibliotek.Services.BookService;
+
+import lombok.RequiredArgsConstructor;
+
 import org.assertj.core.internal.Iterables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,62 +21,47 @@ import java.util.stream.StreamSupport;
  * Project: Bibliotek
  * Copywrite: MIT
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/book")
 public class BookController {
 
     @Autowired
-    private BookService bookService;
+    private final BookService service;
 
     @RequestMapping("")
     public Iterable<Book> showAllBooks(){
-        return bookRepository.findAll();
+        return service.getBooks();
     }
 
     @ResponseBody
     @PostMapping(value="/add", consumes="application/json",produces="application/json")
     public Book addBook(@RequestBody Book book){
-        boolean bookFound = bookRepository.existsByAuthorAndTitle(book.getAuthor(), book.getTitle());
-        if(bookFound) {
-            return null;
-        } else
-            return bookRepository.save(book);
+        return service.addBook(book);
     }
 
     @RequestMapping("/author")
     public List<Book> showBooksByAuthour(String author){
-        return bookRepository.findBookByAuthor(author);
+        return service.getBooksByAuthor(author);
     }
 
     @RequestMapping("/category")
     public List<Book> showBooksByCategory(String category){
-        return bookRepository.findByCategory(category);
+        return service.getBooksByCategory(category);
     }
 
     @RequestMapping("/year")
     public List<Book> showBooksByYear(String year){
-        return bookRepository.findBookByYear(year);
+        return service.getBooksByYear(year);
     }
 
     @RequestMapping ("/delete/{id}")
     public String deleteBookById(@PathVariable long id){
-        int indexToRemove = -1;
-        List<Book> books = StreamSupport.stream(bookRepository.findAll().spliterator(), false).collect(Collectors.toList());
-        for(int i = 0; i < books.size(); i++){
-            if(books.get(i).getId() == id){
-                indexToRemove = i;
-            }
-        }
-        if(indexToRemove != -1){
-            Book b = books.get(indexToRemove);
-            bookRepository.delete(b);
-            return "Book with id " + id + " is removed.";
-        }
-        return "Book with id " + id + " could not be removed.";
+        return service.deleteBookById(id);
     }
 
     @RequestMapping("/readBooks")
-    public Iterable<Book> getReadBooks() { return bookService.getBooksIHaveRead();}
+    public Iterable<Book> getReadBooks() { return service.getBooksIHaveRead();}
 
 
 }
