@@ -28,6 +28,12 @@ public class BookService {
         return repository.findAll();
     }
 
+
+    public Iterable<Book> getBooksIHaveRead(){
+        Iterable<Book> readBooks = repository.findByHaveIReadIt(true);
+        return readBooks;
+    }
+
     public List<Book> getBooksByAuthor(String author){
         return repository.findBookByAuthor(author);
     }
