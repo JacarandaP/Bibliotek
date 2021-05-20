@@ -83,4 +83,36 @@ class BookServiceTest {
 
         verify(mockRepository).findAll();
     }
+
+    @Test
+    void getBooksByAuthor() {
+        Book mockBook = new Book();
+        String author = "Inger Christensen";
+        mockBook.setAuthor(author);
+        mockBook.setTitle("Det");
+        mockBook.setPublisher("Modernista");
+        mockBook.setYear("2009");
+
+        when(mockRepository.findBookByAuthor(author)).thenReturn(Arrays.asList(mockBook1));
+
+        List<Book> actual = bookService.getBooksByAuthor(author);
+
+        assertEquals(author, actual.get(0).getAuthor());
+        verify(mockRepository).findBookByAuthor(anyString());
+
+    }
+
+    @Test
+    void getBooksByCategory() {
+        Book mockBook1 = new Book();
+        String author = "Inger Christensen";
+        mockBook1.setAuthor(author);
+        mockBook1.setTitle("Det");
+        mockBook1.setPublisher("Modernista");
+        mockBook1.setYear("2009");
+    }
+
+    @Test
+    void getBooksByYear() {
+    }
 }
