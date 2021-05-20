@@ -186,7 +186,6 @@ class BookServiceTest {
 
   
     @Test
-    @Disabled
     void getBooksByCategory() {
         Category mockCat = new Category();
         mockCat.setName("poesi");
