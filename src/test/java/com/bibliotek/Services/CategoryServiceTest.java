@@ -8,6 +8,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -46,6 +49,26 @@ class CategoryServiceTest {
 
         assertEquals(expectedCategory, actual.getName());
         verify(categoryRepository).save(any());
+    }
+
+    @Test
+    void getAllCategories() {
+        Category testCategory1 = new Category();
+        String expectedCategory1 = "Biografi";
+
+        Category testCategory2 = new Category();
+        String expectedCategory2 = "Deckare";
+
+        testCategory1.setName(expectedCategory1);
+        testCategory2.setName(expectedCategory2);
+
+        when(categoryRepository.findAll()).thenReturn(Arrays.asList(testCategory1, testCategory2));
+
+        List<Category> actual = categoryService.getAllCategories();
+
+        assertEquals(testCategory1, actual.get(0));
+        assertEquals(testCategory2, actual.get(1));
+        assertEquals(2, actual.size());
     }
 
 
