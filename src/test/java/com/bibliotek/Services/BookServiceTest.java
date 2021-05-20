@@ -105,6 +105,25 @@ class BookServiceTest {
 
 
     }
+
+    @Test
+    void getBooksByAuthorAndTitle(){
+        Book mockBook = new Book();
+        String author = "Inger Christensen";
+        String title = "Det";
+        mockBook.setAuthor(author);
+        mockBook.setTitle(title);
+
+        when(mockRepository.findByAuthorAndTitle(author,title)).thenReturn(mockBook);
+
+        Book actual = bookService.getBooksByAuthorAndTitle(author,title);
+
+        assertEquals(author, actual.getAuthor());
+        assertEquals(title, actual.getTitle());
+        verify(mockRepository).findByAuthorAndTitle(anyString(), anyString());
+
+    }
+
   
    @Test
     void addBook_fail() {
