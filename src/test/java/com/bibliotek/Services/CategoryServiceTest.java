@@ -53,7 +53,7 @@ class CategoryServiceTest {
     void addCategory_invalid(){
         Category invalidCategory = new Category();
 
-        //assertThrows(ResponseStatusException.class, ()-> categoryService.addCategory(invalidCategory));
+        assertThrows(ResponseStatusException.class, ()-> categoryService.addCategory(invalidCategory));
         verify(categoryRepository, times(0)).save(any());
         verify(categoryRepository, times(0)).existsByName(anyString());
     }
@@ -62,14 +62,14 @@ class CategoryServiceTest {
     void addCategory_Existing(){
         String expectedCategory ="Skönlitteratur";
 
-        Category existingCategory = new Category();
-        existingCategory.setName(expectedCategory);
+        Category addC = new Category();
+        addC.setName(expectedCategory);
 
         when(categoryRepository.existsByName(anyString())).thenReturn(true);
 
-        //assertThrows(ResponseStatusException. class, () ->categoryService.addCategory(existingCategory));
+        assertThrows(ResponseStatusException. class, () ->categoryService.addCategory(addC));
 
         verify(categoryRepository, times(0)).save(any());
-        verify(categoryRepository.existsByName(anyString()));
+        verify(categoryRepository).existsByName(anyString());
     }
 }
