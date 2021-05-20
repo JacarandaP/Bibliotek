@@ -40,28 +40,28 @@ public class BookController {
         return service.addBook(book);
     }
 
-    @RequestMapping("/author")
-    public List<Book> showBooksByAuthor(String author){
+    @GetMapping("/author")
+    public List<Book> showBooksByAuthor(@RequestParam String author){
         return service.getBooksByAuthor(author);
     }
 
-    @RequestMapping("/title")
-    public List<Book> showBooksByTitle(String title){
+    @GetMapping("/title")
+    public List<Book> showBooksByTitle(@RequestParam String title){
         return service.getBooksByTitle(title);
     }
 
-    @RequestMapping("/authorAndTitle")
-    public Book showBooksByAuthorAndTitle(String author, String title){
+    @GetMapping("/authorAndTitle")
+    public Book showBooksByAuthorAndTitle(@RequestParam String author, @RequestParam String title){
         return service.getBooksByAuthorAndTitle(author, title);
     }
 
-    @RequestMapping("/category")
-    public List<Book> showBooksByCategory(String category){
+    @GetMapping("/category")
+    public List<Book> showBooksByCategory(@RequestParam String category){
         return service.getBooksByCategory(category);
     }
 
-    @RequestMapping("/year")
-    public List<Book> showBooksByYear(String year){
+    @GetMapping("/year")
+    public List<Book> showBooksByYear(@RequestParam String year){
         return service.getBooksByYear(year);
     }
 
