@@ -93,7 +93,7 @@ class BookServiceTest {
         mockBook.setPublisher("Modernista");
         mockBook.setYear("2009");
 
-        when(mockRepository.findBookByAuthor(author)).thenReturn(Arrays.asList(mockBook1));
+        when(mockRepository.findBookByAuthor(author)).thenReturn(Arrays.asList(mockBook));
 
         List<Book> actual = bookService.getBooksByAuthor(author);
 
@@ -104,12 +104,27 @@ class BookServiceTest {
 
     @Test
     void getBooksByCategory() {
-        Book mockBook1 = new Book();
+        Category mockCat = new Category();
+        mockCat.setName("poesi");
+
+        Book mockBook = new Book();
         String author = "Inger Christensen";
-        mockBook1.setAuthor(author);
-        mockBook1.setTitle("Det");
-        mockBook1.setPublisher("Modernista");
-        mockBook1.setYear("2009");
+        mockBook.setAuthor(author);
+        mockBook.setTitle("Det");
+        mockBook.setPublisher("Modernista");
+        mockBook.setYear("2009");
+        mockBook.setCategory(mockCat);
+
+        when(mockRepository.findByCategory(mockCat.getName())).thenReturn((Arrays.asList(mockBook)));
+
+        List<Book> actual = bookService.getBooksByCategory(mockCat.getName());
+
+        assertEquals(mockCat.getId(), actual.get(0).getCategory().getId());
+        assertEquals(mockCat.getName(), actual.get(0).getCategory().getName());
+        assertEquals(1, actual.size());
+        verify(mockRepository).findByCategory(anyString());
+
+
     }
 
     @Test
