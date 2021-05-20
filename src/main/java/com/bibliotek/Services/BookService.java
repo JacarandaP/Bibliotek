@@ -25,18 +25,18 @@ public class BookService {
 
     private final BookRepository repository;
 
-    public Iterable<Book> getBooks(){
+    public List<Book> getBooks(){
         return repository.findAll();
     }
 
 
-    public Iterable<Book> getBooksIHaveRead(){
-        Iterable<Book> readBooks = repository.findByHaveIReadIt(true);
+    public List<Book> getBooksIHaveRead(){
+        List<Book> readBooks = repository.findByHaveIReadIt(true);
         return readBooks;
     }
 
-    public Iterable<Book> getBookToRead(){
-        Iterable<Book> booksToRead = repository.findByHaveIReadIt(false);
+    public List<Book> getBookToRead(){
+        List<Book> booksToRead = repository.findByHaveIReadIt(false);
         return booksToRead;
     }
 

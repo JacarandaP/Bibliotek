@@ -30,7 +30,7 @@ public class BookController {
     private final BookService service;
 
     @RequestMapping("")
-    public Iterable<Book> showAllBooks(){
+    public List<Book> showAllBooks(){
         return service.getBooks();
     }
 
@@ -71,10 +71,10 @@ public class BookController {
     }
 
     @RequestMapping("/readBooks")
-    public Iterable<Book> getReadBooks() { return service.getBooksIHaveRead();}
+    public List<Book> getReadBooks() { return service.getBooksIHaveRead();}
 
     @RequestMapping("/bookstoread")
-    public Iterable<Book> getBooksToRead() { return service.getBookToRead();}
+    public List<Book> getBooksToRead() { return service.getBookToRead();}
 
 
 }
