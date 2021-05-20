@@ -2,6 +2,7 @@ package com.bibliotek.Controllers;
 
 import com.bibliotek.Models.Book;
 import com.bibliotek.Repositories.BookRepository;
+import com.bibliotek.Services.BookService;
 import org.assertj.core.internal.Iterables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ import java.util.stream.StreamSupport;
 public class BookController {
 
     @Autowired
-    private BookRepository bookRepository;
+    private BookService bookService;
 
     @RequestMapping("")
     public Iterable<Book> showAllBooks(){
@@ -38,7 +39,6 @@ public class BookController {
         } else
             return bookRepository.save(book);
     }
-
 
     @RequestMapping("/author")
     public List<Book> showBooksByAuthour(String author){
@@ -71,5 +71,10 @@ public class BookController {
         }
         return "Book with id " + id + " could not be removed.";
     }
+
+    @RequestMapping("/readBooks")
+    public Iterable<Book> getReadBooks() { return bookService.getBooksIHaveRead();}
+
+
 }
 

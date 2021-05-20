@@ -23,4 +23,11 @@ public class BookService {
     public Iterable<Book> getBooks(){
         return repository.findAll();
     }
+
+    public Iterable<Book> getBooksIHaveRead(){
+        Iterable<Book> readBooks = repository.findByHaveIReadIt(true);
+        return readBooks;
+    }
+
+
 }

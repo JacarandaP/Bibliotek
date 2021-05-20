@@ -16,5 +16,7 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     Book findByAuthorAndTitle(String title, String author);
     List<Book> findByCategory(String category);
     boolean existsByAuthorAndTitle(String author, String title);
+    List<Book> findByHaveIReadIt (boolean haveIReadIt);
+    List<Book> findByHaveIReadIt (boolean haveIReadIt);
 
 }
