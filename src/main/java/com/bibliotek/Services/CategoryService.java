@@ -4,8 +4,10 @@ import com.bibliotek.Models.Book;
 import com.bibliotek.Models.Category;
 import com.bibliotek.Repositories.CategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class CategoryService {
     public Category addCategory(Category category){
         boolean categoryFound = categoryRepository.existsByName(category.getName());
         if(categoryFound) {
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category already exists.");
         } else
             return categoryRepository.save(category);
     }
