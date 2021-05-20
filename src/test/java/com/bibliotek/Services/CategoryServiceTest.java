@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.server.ResponseStatusException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by Lisa Ramel
@@ -48,5 +48,29 @@ class CategoryServiceTest {
         verify(categoryRepository).save(any());
     }
 
+    // Add addCategory_failures
+    @Test
+    void addCategory_invalid(){
+        Category invalidCategory = new Category();
 
+        assertThrows(ResponseStatusException.class, ()-> categoryService.addCategory(invalidCategory));
+        verify(categoryRepository, times(0)).save(any());
+        verify(categoryRepository, times(0)).existsByName(anyString());
+    }
+
+    @Test
+    void addCategory_Existing(){
+        String expectedCategory ="Skönlitteratur";
+
+        Category existingCategory = new Category();
+        existingCategory.setName(expectedCategory);
+
+        when(categoryRepository.existsByName(anyString())).thenReturn(true);
+
+        assertThrows(ResponseStatusException. class, () ->categoryService.addCategory(existingCategory));
+
+
+        verify(categoryRepository, times(0)).save(any());
+        verify(categoryRepository.existsByName(anyString()));
+    }
 }
