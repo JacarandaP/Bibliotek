@@ -13,6 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -69,6 +70,24 @@ class CategoryServiceTest {
         assertEquals(testCategory1, actual.get(0));
         assertEquals(testCategory2, actual.get(1));
         assertEquals(2, actual.size());
+
+        verify(categoryRepository).findAll();
+    }
+
+    @Test
+    public void getCategoryByName(){
+        Category testCategory = new Category();
+        String expectedCategory = "Fantasy";
+
+        testCategory.setName(expectedCategory);
+
+        when(categoryRepository.findByName(expectedCategory)).thenReturn(testCategory);
+
+        Category actual = categoryService.getCategoryByName(expectedCategory);
+
+        assertEquals(expectedCategory, actual.getName());
+
+        verify(categoryRepository).findByName(anyString());
     }
 
 
