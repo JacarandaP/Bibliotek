@@ -35,7 +35,7 @@ public class CategoryService {
             return categoryRepository.save(category);
     }
 
-    //
+    //Add to test addCategory_invalid
     private void ValidateCategory(Category category){
         if(category.getName()== null || category.getName().isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Category name must be written.");
