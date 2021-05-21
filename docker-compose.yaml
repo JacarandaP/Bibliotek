@@ -9,3 +9,7 @@ services:
       MYSQL_DATABASE: bibliotek
     ports:
       - "3307:3306"
+
+
+
+
