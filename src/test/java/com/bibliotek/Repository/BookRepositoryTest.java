@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Date: 2021-05-18
  * Project: Bibliotek
  */
-@DataJpaTest
+@DataMongoTest
 public class BookRepositoryTest {
 
     @Autowired
@@ -29,6 +29,7 @@ public class BookRepositoryTest {
     @Test
     void findBookByTitleTest(){
         Book book1 = new Book();
+        book1.setId(1L);
         book1.setAuthor("Jens Lapidus");
         book1.setTitle("Snabba Cash");
         book1.setPublisher("Pocket");
@@ -44,6 +45,7 @@ public class BookRepositoryTest {
     @Test
     void findBookByhaveIReadIt(){
         Book book1 = new Book();
+        book1.setId(1L);
         book1.setAuthor("Jens Lapidus");
         book1.setTitle("Snabba Cash");
         book1.setPublisher("Pocket");
@@ -51,6 +53,7 @@ public class BookRepositoryTest {
         book1.setHaveIReadIt(true);
 
         Book book2 = new Book();
+        book2.setId(2L);
         book2.setAuthor("Inger Christensen");
         book2.setTitle("Det");
         book2.setPublisher("Modernista");
@@ -58,6 +61,7 @@ public class BookRepositoryTest {
         book2.setHaveIReadIt(true);
 
         Book book3 = new Book();
+        book3.setId(3L);
         book3.setAuthor("Albert Camus");
         book3.setTitle("El extranjero");
         book3.setPublisher("Alianza");
@@ -79,6 +83,7 @@ public class BookRepositoryTest {
     @Test
     void findBooksToRead(){
         Book book1 = new Book();
+        book1.setId(1L);
         book1.setAuthor("Jens Lapidus");
         book1.setTitle("Snabba Cash");
         book1.setPublisher("Pocket");
@@ -86,6 +91,7 @@ public class BookRepositoryTest {
         book1.setHaveIReadIt(true);
 
         Book book2 = new Book();
+        book2.setId(2L);
         book2.setAuthor("Inger Christensen");
         book2.setTitle("Det");
         book2.setPublisher("Modernista");
@@ -93,6 +99,7 @@ public class BookRepositoryTest {
         book2.setHaveIReadIt(false);
 
         Book book3 = new Book();
+        book3.setId(3L);
         book3.setAuthor("Albert Camus");
         book3.setTitle("El extranjero");
         book3.setPublisher("Alianza");

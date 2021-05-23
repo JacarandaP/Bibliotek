@@ -4,6 +4,7 @@ import com.bibliotek.Models.Category;
 import com.bibliotek.Repositories.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Arrays;
@@ -15,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Date: 2021-05-18
  * Project: Bibliotek
  */
-@DataJpaTest
+@DataMongoTest
 public class CategoryRepositoryTest {
 
     @Autowired
@@ -25,6 +26,8 @@ public class CategoryRepositoryTest {
     void findByNameTest(){
         Category category1 = new Category();
         Category category2 = new Category();
+        category1.setId(1L);
+        category2.setId(2L);
         category1.setName("Thriller");
         category2.setName("Deckare");
         categoryRepository.save(category1);
