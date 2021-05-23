@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
 
 
@@ -32,6 +33,7 @@ import static org.mockito.Mockito.*;
  * Project: Bibliotek
  * Copyright: MIT
  */
+
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
 

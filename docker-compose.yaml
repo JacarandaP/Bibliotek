@@ -6,9 +6,12 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: mypassword
-      MYSQL_DATABASE: bibliotek
+      MYSQL_DATABASE: biblioteksql
     ports:
       - "3307:3306"
+
+
+
 
 
 
