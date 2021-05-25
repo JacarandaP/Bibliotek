@@ -3,7 +3,6 @@ package com.bibliotek.Services;
 import com.bibliotek.Models.Book;
 import com.bibliotek.Models.Category;
 import com.bibliotek.Repositories.BookRepository;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 
@@ -48,6 +47,7 @@ class BookServiceTest {
     @Test
     void addBook_success() {
         Book mockBook = new Book();
+        mockBook.setId(1L);
         mockBook.setAuthor("Inger Christensen");
         mockBook.setTitle("Det");
         mockBook.setPublisher("Modernista");
@@ -68,12 +68,14 @@ class BookServiceTest {
     @Test
     void getBooks(){
         Book mockBook1 = new Book();
+        mockBook1.setId(1L);
         mockBook1.setAuthor("Inger Christensen");
         mockBook1.setTitle("Det");
         mockBook1.setPublisher("Modernista");
         mockBook1.setYear("2009");
 
         Book mockBook2 = new Book();
+        mockBook2.setId(2L);
         mockBook2.setAuthor("Jens Lapidus");
         mockBook2.setTitle("Snabba Cash");
         mockBook2.setPublisher("Pocket");
@@ -93,6 +95,7 @@ class BookServiceTest {
     @Test
     void getBooksByAuthor() {
         Book mockBook = new Book();
+        mockBook.setId(1L);
         String author = "Inger Christensen";
         mockBook.setAuthor(author);
 
@@ -109,6 +112,7 @@ class BookServiceTest {
     @Test
     void getBooksByAuthorAndTitle(){
         Book mockBook = new Book();
+        mockBook.setId(1L);
         String author = "Inger Christensen";
         String title = "Det";
         mockBook.setAuthor(author);
@@ -128,9 +132,8 @@ class BookServiceTest {
    @Test
     void addBook_fail() {
        Book mockBook = new Book();
+       mockBook.setId(1L);
        mockBook.setAuthor("Inger Christensen");
-
-
        mockBook.setTitle("Det");
        mockBook.setPublisher("Modernista");
        mockBook.setYear("2009");
@@ -186,13 +189,13 @@ class BookServiceTest {
 
   
     @Test
-    @Disabled
     void getBooksByCategory() {
         Category mockCat = new Category();
         mockCat.setName("poesi");
-
+        mockCat.setId(1L);
         Book mockBook = new Book();
         String author = "Inger Christensen";
+        mockBook.setId(1L);
         mockBook.setAuthor(author);
         mockBook.setTitle("Det");
         mockBook.setPublisher("Modernista");
@@ -213,6 +216,7 @@ class BookServiceTest {
     void getBooksByYear() {
         Book mockBook = new Book();
         String year = "2009";
+        mockBook.setId(1L);
         mockBook.setAuthor("Inger Christensen");
         mockBook.setTitle("Det");
         mockBook.setPublisher("Modernista");
