@@ -2,7 +2,6 @@ name: Build and push image to Docker Hub
 
 on:
   workflow_dispatch:
-  push:
 
 jobs:
   build-and-push:
