@@ -1,8 +1,8 @@
 package com.bibliotek.Controllers;
 
-
 import com.bibliotek.Models.Book;
 import com.bibliotek.Models.Category;
+
 import com.bibliotek.Repositories.CategoryRepository;
 import com.bibliotek.Services.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ import java.util.List;
 public class CategoryController {
 
     private final CategoryService categoryService;
-
+  
     @RequestMapping("")
     public List<Category> showAllCategories() {
         return categoryService.getAllCategories();
