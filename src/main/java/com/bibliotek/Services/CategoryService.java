@@ -4,6 +4,7 @@ import com.bibliotek.Models.Book;
 import com.bibliotek.Models.Category;
 import com.bibliotek.Repositories.CategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class CategoryService {
+
+    @Autowired
     private final CategoryRepository categoryRepository;
 
     public List<Category> getAllCategories() {

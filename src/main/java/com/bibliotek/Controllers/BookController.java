@@ -4,10 +4,12 @@ import com.bibliotek.Models.Book;
 import com.bibliotek.Repositories.BookRepository;
 import com.bibliotek.Services.BookService;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.stream.StreamSupport;
  * Copywrite: MIT
  */
 @RequiredArgsConstructor
+@Controller
 @RestController
 @RequestMapping("/book")
 public class BookController {

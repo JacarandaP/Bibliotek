@@ -3,6 +3,7 @@ package com.bibliotek.Services;
 import com.bibliotek.Models.Book;
 import com.bibliotek.Repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,6 +24,7 @@ import java.util.stream.StreamSupport;
 @Service
 public class BookService {
 
+    @Autowired
     private final BookRepository repository;
 
     public List<Book> getBooks(){
