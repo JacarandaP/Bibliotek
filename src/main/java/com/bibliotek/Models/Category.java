@@ -1,8 +1,11 @@
 package com.bibliotek.Models;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+
+
 
 /**
  * Created by Miwa Guhrés
@@ -11,12 +14,10 @@ import javax.persistence.*;
  * Project: Bibliotek
  * Copyright: MIT
  */
-@Getter
-@Setter
-@Entity
+@Data
+
 public class Category {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private  String name;
 
