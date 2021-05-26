@@ -2,33 +2,20 @@ version: "3.1"
 
 services:
   db:
-    image: mysql:8.0
+    image: mysql
     restart: always
     environment:
-      MYSQL_USER: any
-      MYSQL_PASSWORD: anyword
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: biblioteksql
     ports:
       - "3306:3306"
-    networks:
-      - common-network
 
   bibliotek:
     image: bibliotek
+    build: .
     ports:
       - "8082:8080"
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/biblioteksql
-      SPRING_DATASOURCE_USERNAME: any
-      SPRING_DATASOURCE_PASSWORD: anyword
-      DATABASE_NAME: biblioteksql
     depends_on:
       - db
-    networks:
-      - common-network
-
-networks:
-  common-network:
-    driver: bridge
