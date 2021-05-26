@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
  * Project: Bibliotek
  * Copywrite: MIT
  */
-@ActiveProfiles("local")
+
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceTest {
 
