@@ -9,8 +9,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Created by Vilma Couturier Kaijser
@@ -68,21 +66,6 @@ public class BookService {
             return repository.save(book);
     }
 
-   /* public String deleteBookById(long id){
-        int indexToRemove = -1;
-        List<Book> books = StreamSupport.stream(repository.findAll().spliterator(), false).collect(Collectors.toList());
-        for(int i = 0; i < books.size(); i++){
-            if(books.get(i).getId() == id){
-                indexToRemove = i;
-            }
-        }
-        if(indexToRemove != -1){
-            Book b = books.get(indexToRemove);
-            repository.delete(b);
-            return "Book with id " + id + " is removed.";
-        }
-        return "Book with id " + id + " could not be removed.";
-    }*/
 
     public String deleteById(Long id) {
         boolean doesBookexist = repository.existsById(id);
@@ -92,5 +75,12 @@ public class BookService {
         repository.deleteById(id);
         return "Book with id " + id + " is removed.";
         }
+    }
+
+    public String readIt(Long id) {
+        Book book = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Book with " + id + " not found."));
+        book.setHaveIReadIt(true);
+        repository.save(book);
+        return "Book with id " + id + " is now marked as read.";
     }
 }
