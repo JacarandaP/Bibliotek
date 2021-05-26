@@ -76,5 +76,10 @@ public class BookController {
     public List<Book> getBooksToRead() { return service.getBookToRead();}
 
 
+    @GetMapping ("/readit")
+    public String readBookById(@RequestParam long id){
+        return service.readIt(id);
+    }
+
 }
 
