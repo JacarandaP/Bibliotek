@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 
@@ -229,4 +230,27 @@ class BookServiceTest {
         assertEquals(year, actual.get(0).getYear());
         verify(mockRepository).findBookByYear(anyString());
     }
+
+    @Test
+    void readItTest(){
+        Book mockBook = new Book();
+        String year = "2009";
+        mockBook.setId(1L);
+        mockBook.setAuthor("Inger Christensen");
+        mockBook.setTitle("Det");
+        mockBook.setPublisher("Modernista");
+        mockBook.setYear(year);
+        mockBook.setHaveIReadIt(false);
+        String messg = "Book with id " + mockBook.getId() + " is now marked as read.";
+
+        when(mockRepository.findById(anyLong())).thenReturn(java.util.Optional.of(mockBook));
+        mockBook.setHaveIReadIt(true);
+        mockRepository.save(mockBook);
+
+        String actual = bookService.readIt(1L);
+
+        assertEquals("Book with id 1 is now marked as read.", actual);
+
+    }
+
 }

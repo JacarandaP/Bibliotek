@@ -77,7 +77,7 @@ public class BookService {
         }
     }
 
-    public String readIt(long id) {
+    public String readIt(Long id) {
         Book book = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Book with " + id + " not found."));
         book.setHaveIReadIt(true);
         repository.save(book);

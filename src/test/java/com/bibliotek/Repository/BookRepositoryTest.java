@@ -40,8 +40,8 @@ public class BookRepositoryTest {
         List<Book> actualBook = bookRepository.findBookByTitle("Snabba Cash");
 
         assertEquals(Arrays.asList(book1), actualBook);
-
     }
+
     @Test
     void findBookByhaveIReadIt(){
         Book book1 = new Book();
